@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-import { useDispatch, useSelector } from "react-redux";
 import { setLang } from "./redux/lang/langActions";
 import { setTheme } from "./redux/theme/themeActions";
 
@@ -9,11 +9,6 @@ const App = () => {
   const lang = useSelector((state) => state.lang.lang);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
-  const [editTodo, setEditTodo] = useState(null);
-
-  const onEditHandler = (todo) => () => {
-    setEditTodo(todo);
-  };
 
   useEffect(() => {
     document.body.className =
@@ -54,8 +49,8 @@ const App = () => {
               <h1 className="card-title text-center mb-4">
                 {lang === "en" ? "To-Do List" : "Daftar To-Do"}
               </h1>
-              <TodoInput editTodo={editTodo} setEditTodo={setEditTodo} />
-              <TodoList onEditHandler={onEditHandler} />
+              <TodoInput />
+              <TodoList />
             </div>
           </div>
         </div>

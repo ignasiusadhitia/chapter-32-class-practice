@@ -2,10 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addTodo,
+  // addTodo,
   resetSelectedTodo,
-  updateTodo,
+  // updateTodo,
 } from "../redux/todos/todosActions";
+import {
+  addTodoRequest,
+  updateTodoRequest,
+} from "../redux/async/todos/todosActions";
+import { v4 as uuidv4 } from "uuid";
 
 const TodoInput = () => {
   const lang = useSelector((state) => state.lang.lang);
@@ -23,16 +28,17 @@ const TodoInput = () => {
 
     if (selectedTodo) {
       dispatch(
-        updateTodo({
+        updateTodoRequest({
           id: selectedTodo.id,
           text,
+          completed: selectedTodo.completed,
         })
       );
       dispatch(resetSelectedTodo());
     } else {
       dispatch(
-        addTodo({
-          id: Date.now(),
+        addTodoRequest({
+          id: uuidv4(),
           text,
           completed: false,
         })

@@ -1,9 +1,9 @@
-import { legacy_createStore as createStore } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 
 // state untuk menampung data
 const initialState = {
-    count: 0
-}
+  count: 0,
+};
 
 // action untuk penghubung antara state dan reducer
 /*
@@ -17,42 +17,47 @@ const initialState = {
 
 // reducer untuk mengelola state
 const counterReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case 'INCREMENT':
-            return {
-                ...state,
-                count: state.count + action.payload
-            }
-        case 'DECREMENT':
-            return {
-                ...state,
-                count: state.count - action.payload
-            }
-        default:
-            return state;
-    }
-}
+  switch (action.type) {
+    case "INCREMENT":
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    case "DECREMENT":
+      return {
+        ...state,
+        count: state.count - action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const loggerMiddleware = (store) => (next) => (action) => {
+  console.log("action", action);
+  next(action);
+  console.log("state terbaru", store.getState());
+};
 
 // store untuk menyimpan semua state (data)
-const store = createStore(counterReducer)
+const store = createStore(counterReducer, applyMiddleware(loggerMiddleware));
 
 // state awal
-console.log("state awal", store.getState());
+// console.log("state awal", store.getState());
 
 // subscribe untuk menangkap perubahan state (useEffect)
-store.subscribe(() => {
-    // menampilkan perubahan state
-    console.log("state terbaru", store.getState());
-})
+// store.subscribe(() => {
+// menampilkan perubahan state
+// console.log("state terbaru", store.getState());
+// });
 
 // dispatch untuk mengirimkan action ke reducer
 store.dispatch({
-    type: 'INCREMENT',
-    payload: 4
-})
+  type: "INCREMENT",
+  payload: 4,
+});
 
 store.dispatch({
-    type: 'DECREMENT',
-    payload: 2
-})
-
+  type: "DECREMENT",
+  payload: 2,
+});

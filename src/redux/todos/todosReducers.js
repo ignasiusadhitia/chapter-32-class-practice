@@ -8,11 +8,7 @@ import {
 } from "./todosActions";
 
 const initialState = {
-  todos: [
-    { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a To-Do List", completed: false },
-    { id: 3, text: "Celebrate", completed: false },
-  ],
+  todos: [],
   selectedTodo: null,
 };
 

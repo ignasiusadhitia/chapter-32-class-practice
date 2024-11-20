@@ -1,16 +1,19 @@
 // src/components/TodoInput.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  // addTodo,
-  resetSelectedTodo,
-  // updateTodo,
-} from "../redux/todos/todosActions";
-import {
-  addTodoRequest,
-  updateTodoRequest,
-} from "../redux/async/todos/todosActions";
+import // addTodo,
+// resetSelectedTodo,
+// updateTodo,
+"../redux/todos/todosActions";
+import // addTodoRequest,
+// updateTodoRequest,
+"../redux/async/todos/todosActions";
 import { v4 as uuidv4 } from "uuid";
+import {
+  addTodo,
+  clearSelectedTodo,
+  updateTodo,
+} from "../redux/redux-toolkit/todosSlice";
 
 const TodoInput = () => {
   const lang = useSelector((state) => state.lang.lang);
@@ -28,21 +31,32 @@ const TodoInput = () => {
 
     if (selectedTodo) {
       dispatch(
-        updateTodoRequest({
+        updateTodo({
           id: selectedTodo.id,
           text,
           completed: selectedTodo.completed,
         })
+        // updateTodoRequest({
+        //   id: selectedTodo.id,
+        //   text,
+        //   completed: selectedTodo.completed,
+        // })
       );
-      dispatch(resetSelectedTodo());
+      // dispatch(resetSelectedTodo());
+      dispatch(clearSelectedTodo());
     } else {
       dispatch(
-        addTodoRequest({
+        addTodo({
           id: uuidv4(),
           text,
           completed: false,
         })
       );
+      // addTodoRequest({
+      //   id: uuidv4(),
+      //   text,
+      //   completed: false,
+      // })
     }
     setText("");
   };

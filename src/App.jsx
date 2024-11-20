@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-import { setLang } from "./redux/lang/langActions";
-import { setTheme } from "./redux/theme/themeActions";
+// import { setLang } from "./redux/lang/langActions";
+// import { setTheme } from "./redux/theme/themeActions";
+import { setLang } from "./redux/redux-toolkit/langSlice";
+import { setTheme } from "./redux/redux-toolkit/themeSlice";
 
 const App = () => {
   const lang = useSelector((state) => state.lang.lang);

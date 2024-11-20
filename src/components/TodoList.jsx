@@ -1,31 +1,38 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import // completeTodo,
+// deleteTodo,
+// selectTodo,
+"../redux/todos/todosActions";
+import // completeTodoRequest,
+// deleteTodoRequest,
+// fetchTodosRequest,
+"../redux/async/todos/todosActions";
 import {
-  // completeTodo,
-  // deleteTodo,
+  completeTodo,
+  deleteTodo,
+  fetchTodos,
   selectTodo,
-} from "../redux/todos/todosActions";
-import {
-  completeTodoRequest,
-  deleteTodoRequest,
-  fetchTodosRequest,
-} from "../redux/async/todos/todosActions";
+} from "../redux/redux-toolkit/todosSlice";
 
 const TodoList = () => {
   const { todos, loading, error, isSuccess } = useSelector(
     (state) => state.todos
   );
+
   const lang = useSelector((state) => state.lang.lang);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTodosRequest());
+    // dispatch(fetchTodosRequest());
+    dispatch(fetchTodos());
   }, [dispatch]);
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(fetchTodosRequest());
+      // dispatch(fetchTodosRequest());
+      dispatch(fetchTodos());
     }
   }, [isSuccess, dispatch]);
 
@@ -55,14 +62,14 @@ const TodoList = () => {
               cursor: "pointer",
               textDecoration: todo.completed ? "line-through" : "none",
             }}
-            onClick={() => dispatch(completeTodoRequest(todo))}
+            onClick={() => dispatch(completeTodo(todo))}
           >
             {todo.text}
           </span>
           <div className="d-flex gap-2">
             <button
               className="btn btn-danger btn-sm"
-              onClick={() => dispatch(deleteTodoRequest(todo.id))}
+              onClick={() => dispatch(deleteTodo(todo.id))}
             >
               {lang === "en" ? "Delete" : "Hapus"}
             </button>
